@@ -49,7 +49,7 @@ namespace Voronoi
             RBNode parent = null;
             if (node)
             {
-				// >>> rhill 2011-05-27: Performance: cache previous/next nodes
+                // >>> rhill 2011-05-27: Performance: cache previous/next nodes
                 successor.Prev = node;
                 successor.Next = node.Next;
                 if (node.Next)
@@ -57,10 +57,10 @@ namespace Voronoi
                     node.Next.Prev = successor;
                 }
                 node.Next = successor;
-				// <<<
+                // <<<
                 if (node.Right)
                 {
-					// in-place expansion of node.rbRight.getFirst();
+                    // in-place expansion of node.rbRight.getFirst();
                     node = node.Right;
                     while (node.Left)
                         node = node.Left;
@@ -77,20 +77,20 @@ namespace Voronoi
             else if (Root)
             {
                 node = GetFirst(Root);
-				// >>> Performance: cache previous/next nodes
+                // >>> Performance: cache previous/next nodes
                 successor.Prev = null;
                 successor.Next = node;
                 node.Prev = successor;
-				// <<<
+                // <<<
                 node.Left = successor;
                 parent = node;
             }
             else
             {
-				// >>> Performance: cache previous/next nodes
+                // >>> Performance: cache previous/next nodes
                 successor.Prev = null;
                 successor.Next = null;
-				// <<<
+                // <<<
                 Root = successor;
                 parent = null;
             }
@@ -162,7 +162,7 @@ namespace Voronoi
 
         public void Remove(RBNode node)
         {
-			// >>> rhill 2011-05-27: Performance: cache previous/next nodes
+            // >>> rhill 2011-05-27: Performance: cache previous/next nodes
             if (node.Next)
             {
                 node.Next.Prev = node.Prev;
@@ -173,7 +173,7 @@ namespace Voronoi
             }
             node.Next = null;
             node.Prev = null;
-			// <<<
+            // <<<
 
             RBNode parent = node.Parent;
             RBNode left = node.Left;
@@ -227,7 +227,7 @@ namespace Voronoi
             {
                 node.Parent = parent;
             }
-			// the 'easy' cases
+            // the 'easy' cases
             if (isRed)
             {
                 return;
@@ -237,7 +237,7 @@ namespace Voronoi
                 node.Red = false;
                 return;
             }
-		    // the other cases
+            // the other cases
             RBNode sibling;
             do
             {
@@ -374,7 +374,7 @@ namespace Voronoi
                 node = node.Right;
             return node;
         }
-		
+
         public static implicit operator bool(RBTree<RBNode> a)
         {
             return a != null;

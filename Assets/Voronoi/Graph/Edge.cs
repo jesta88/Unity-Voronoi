@@ -43,10 +43,10 @@ namespace Voronoi
         {
             this.SetStartPoint(rSite, lSite, vertex);
         }
-		
-		public static implicit operator bool(Edge a)
+
+        public static implicit operator bool(Edge a)
         {
-			return a != null;
+            return a != null;
         }
     }
 }

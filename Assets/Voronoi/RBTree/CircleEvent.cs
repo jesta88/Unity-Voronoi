@@ -6,7 +6,7 @@ namespace Voronoi
     public class CircleEvent : RBNodeBase<CircleEvent>
     {
         public BeachSection arc;
-		public Point site;
+        public Point site;
 
         public float x;
         public float y;

@@ -16,10 +16,10 @@ namespace Voronoi
             cells = new List<Cell>();
             edges = new List<Edge>();
         }
-		
-		public static implicit operator bool (VoronoiGraph a)
-		{
-			return a != null;
-		}
+
+        public static implicit operator bool(VoronoiGraph a)
+        {
+            return a != null;
+        }
     }
 }

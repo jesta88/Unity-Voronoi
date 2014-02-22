@@ -10,46 +10,46 @@ namespace Voronoi
     {
         public Point site;
         public List<HalfEdge> halfEdges;
-		
-		public bool closeMe;
+
+        public bool closeMe;
 
         public Cell(Point site)
         {
             this.site = site;
             this.halfEdges = new List<HalfEdge>();
-			this.closeMe = false;
+            this.closeMe = false;
         }
-		
-		public Cell Init(Point site)
-		{
-			this.site = site;
-			this.halfEdges = new List<HalfEdge>();
-			this.closeMe = false;
-			return this;
-		}
+
+        public Cell Init(Point site)
+        {
+            this.site = site;
+            this.halfEdges = new List<HalfEdge>();
+            this.closeMe = false;
+            return this;
+        }
 
         public int Prepare()
         {
             Edge edge = null;
 
             // Get rid of unused halfEdges
-			// rhill 2011-05-27: Keep it simple, no point here in trying
-    		// to be fancy: dangling edges are a typically a minority.
+            // rhill 2011-05-27: Keep it simple, no point here in trying
+            // to be fancy: dangling edges are a typically a minority.
             for (int i = this.halfEdges.Count - 1; i >= 0; i--)
             {
                 edge = this.halfEdges[i].edge;
                 if (!edge.vb || !edge.va)
                 {
                     //this.halfEdges.RemoveAt(i);
-					this.halfEdges.Remove(this.halfEdges[i]);
+                    this.halfEdges.Remove(this.halfEdges[i]);
                 }
             }
-			
-			// rhill 2011-05-26: I tried to use a binary search at insertion
-		    // time to keep the array sorted on-the-fly (in Cell.addHalfedge()).
-		    // There was no real benefits in doing so, performance on
-		    // Firefox 3.6 was improved marginally, while performance on
-		    // Opera 11 was penalized marginally.
+
+            // rhill 2011-05-26: I tried to use a binary search at insertion
+            // time to keep the array sorted on-the-fly (in Cell.addHalfedge()).
+            // There was no real benefits in doing so, performance on
+            // Firefox 3.6 was improved marginally, while performance on
+            // Opera 11 was penalized marginally.
             /*this.halfEdges.Sort((a, b) =>
                 {
                     float r = b.angle - a.angle;

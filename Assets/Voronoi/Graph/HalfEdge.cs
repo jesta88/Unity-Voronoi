@@ -46,10 +46,10 @@ namespace Voronoi
         {
             return this.edge.lSite == this.site ? this.edge.vb : this.edge.va;
         }
-		
-		public static implicit operator bool(HalfEdge a)
+
+        public static implicit operator bool(HalfEdge a)
         {
-			return a != null;
+            return a != null;
         }
     }
 }

@@ -31,7 +31,7 @@ namespace Voronoi
 
         public static implicit operator bool(Point a)
         {
-			return a != null;
+            return a != null;
         }
 
         public override string ToString()
