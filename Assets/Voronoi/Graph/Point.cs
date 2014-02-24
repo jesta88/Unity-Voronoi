@@ -38,5 +38,10 @@ namespace Voronoi
         {
             return string.Concat("(", this.x, ", ", this.y, ", ", this.z, ")");
         }
+		
+		public Vector3 ToVector3()
+		{
+			return new Vector3(this.x, this.z, this.y);
+		}
     }
 }

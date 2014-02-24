@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEditor;
 using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,19 +7,22 @@ using System.Collections.Generic;
 using Voronoi;
 using Cell = Voronoi.Cell;
 
-public class VoronoiDemo : MonoBehaviour
+public class VoronoiDemo : Editor
 {
     public int numSites = 36;
     public Bounds bounds;
+	public GameObject chunkObj;
 
     private List<Point> sites;
     private FortuneVoronoi voronoi;
-    private VoronoiGraph graph;
+    public VoronoiGraph graph;
+	private List<GameObject> chunks;
 
     void Start()
     {
         sites = new List<Point>();
         voronoi = new FortuneVoronoi();
+		chunks = new List<GameObject>();
     }
 
     void Update()
@@ -26,13 +30,34 @@ public class VoronoiDemo : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.G))
         {
             CreateSites(true, false);
+			CreateChunks();
         }
         if (Input.GetKeyDown(KeyCode.R))
         {
             RelaxSites(1);
         }
+		if (Input.GetKeyDown(KeyCode.M) && graph)
+		{
+			CreateChunks();
+		}
     }
-
+	
+	void CreateChunks()
+	{
+		foreach (GameObject obj in chunks)
+		{
+			Destroy(obj);
+		}
+		chunks.Clear();
+		
+		foreach (Cell cell in graph.cells)
+		{
+			GameObject chunk = Instantiate(chunkObj, cell.site.ToVector3(), Quaternion.identity) as GameObject;
+			chunks.Add(chunk);
+			chunk.GetComponent<FractureChunk>().CreateMesh(cell);
+		}
+	}
+	
     void Compute(List<Point> sites)
     {
         this.sites = sites;
@@ -160,18 +185,24 @@ public class VoronoiDemo : MonoBehaviour
         {
             foreach (Voronoi.Cell cell in graph.cells)
             {
+				Matrix4x4 mat = new Matrix4x4();
+				mat.SetTRS(Vector3.zero, Quaternion.identity, Vector3.one * 1);
+				Gizmos.matrix = mat;
                 Gizmos.color = Color.black;
                 Gizmos.DrawCube(new Vector3(cell.site.x, 0, cell.site.y), Vector3.one);
 
                 if (cell.halfEdges.Count > 0)
                 {
-                    foreach (HalfEdge halfEdge in cell.halfEdges)
+                    for (int i = 0; i < cell.halfEdges.Count; i++)
                     {
+						HalfEdge halfEdge = cell.halfEdges[i];
                         Edge edge = halfEdge.edge;
-
+						
+						//Debug.Log("Cell " + cell.site.id + " HalfEdge " + i + " Vertex A: " + edge.va.ToVector3());
+						
                         if (edge.va && edge.vb)
                         {
-                            Gizmos.color = Color.red;
+                            Gizmos.color = new Color((float)i / (cell.halfEdges.Count - 1), 0, 0, 1);
                             Gizmos.DrawLine(new Vector3(edge.va.x, 0, edge.va.y),
                                             new Vector3(edge.vb.x, 0, edge.vb.y));
                         }

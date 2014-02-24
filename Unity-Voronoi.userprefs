@@ -1,0 +1,18 @@
+﻿<Properties>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Voronoi\Demos\VoronoiDemo.cs">
+    <Files>
+      <File FileName="Assets\Voronoi\Demos\VoronoiDemo.cs" Line="199" Column="51" />
+      <File FileName="Assets\Voronoi\Demos\FractureChunk.cs" Line="23" Column="6" />
+      <File FileName="Assets\Voronoi\Graph\Point.cs" Line="1" Column="1" />
+      <File FileName="Assets\Voronoi\Graph\HalfEdge.cs" Line="10" Column="27" />
+      <File FileName="Assets\Voronoi\Graph\Cell.cs" Line="43" Column="46" />
+      <File FileName="Assets\Voronoi\Demos\Color.shader" Line="16" Column="4" />
+      <File FileName="Assets\Voronoi\Graph\Edge.cs" Line="26" Column="38" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+</Properties>
