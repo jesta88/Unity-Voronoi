@@ -40,7 +40,6 @@ namespace Voronoi
                 edge = this.halfEdges[i].edge;
                 if (!edge.vb || !edge.va)
                 {
-                    //this.halfEdges.RemoveAt(i);
                     this.halfEdges.Remove(this.halfEdges[i]);
                 }
             }
@@ -50,23 +49,7 @@ namespace Voronoi
             // There was no real benefits in doing so, performance on
             // Firefox 3.6 was improved marginally, while performance on
             // Opera 11 was penalized marginally.
-            /*this.halfEdges.Sort((a, b) =>
-                {
-                    float r = b.angle - a.angle;
-                    return r < 0 ? Mathf.FloorToInt(r) : Mathf.CeilToInt(r);
-                });
-            */
             this.halfEdges = this.halfEdges.OrderByDescending(h => h.angle).ToList();
-
-            /*string output = "";
-            for (int i = 0; i < this.halfEdges.Count; i++)
-            {
-                HalfEdge he = this.halfEdges[i];
-                output += i.ToString() + ": " + he.angle.ToString("F1");
-                if (i < this.halfEdges.Count - 1)
-                    output += ", ";
-            }
-            Debug.Log(output);*/
 
             return this.halfEdges.Count;
         }
