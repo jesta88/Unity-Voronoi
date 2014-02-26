@@ -53,8 +53,9 @@ public class VoronoiDemo : Editor
 		foreach (Cell cell in graph.cells)
 		{
 			GameObject chunk = Instantiate(chunkObj, cell.site.ToVector3(), Quaternion.identity) as GameObject;
+            chunk.name = "Chunk " + cell.site.id;
 			chunks.Add(chunk);
-			chunk.GetComponent<FractureChunk>().CreateMesh(cell);
+			chunk.GetComponent<FractureChunk>().CreateFanMesh(cell);
 		}
 	}
 	
@@ -185,9 +186,6 @@ public class VoronoiDemo : Editor
         {
             foreach (Voronoi.Cell cell in graph.cells)
             {
-				Matrix4x4 mat = new Matrix4x4();
-				mat.SetTRS(Vector3.zero, Quaternion.identity, Vector3.one * 1);
-				Gizmos.matrix = mat;
                 Gizmos.color = Color.black;
                 Gizmos.DrawCube(new Vector3(cell.site.x, 0, cell.site.y), Vector3.one);
 
@@ -196,16 +194,10 @@ public class VoronoiDemo : Editor
                     for (int i = 0; i < cell.halfEdges.Count; i++)
                     {
 						HalfEdge halfEdge = cell.halfEdges[i];
-                        Edge edge = halfEdge.edge;
-						
-						//Debug.Log("Cell " + cell.site.id + " HalfEdge " + i + " Vertex A: " + edge.va.ToVector3());
-						
-                        if (edge.va && edge.vb)
-                        {
-                            Gizmos.color = new Color((float)i / (cell.halfEdges.Count - 1), 0, 0, 1);
-                            Gizmos.DrawLine(new Vector3(edge.va.x, 0, edge.va.y),
-                                            new Vector3(edge.vb.x, 0, edge.vb.y));
-                        }
+
+                            Gizmos.color = Color.red;
+                            Gizmos.DrawLine(halfEdge.GetStartPoint().ToVector3(),
+                                            halfEdge.GetEndPoint().ToVector3());
                     }
                 }
             }
